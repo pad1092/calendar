@@ -1,0 +1,154 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body{
+    display: flex;
+    background-color: brown;
+    justify-content: center;
+    margin-top: 50px;
+}
+#calendar{
+    width: 1200px;
+    height: 100%;
+    background: rgb(240, 238, 238);
+    border-radius: 5px;
+}
+.calendar--active{
+    border: 1.5px solid rgb(29, 62, 247) !important;
+}
+.calendar--inactive{
+    background-color: #d4d4d4;
+    opacity: 0.3;
+}
+.calendar-header{
+    display: flex;
+    justify-content: center;
+    margin: 0 20px;
+}
+.calendar-control{
+    text-align: center;
+    padding: 4px;
+}
+.calendar-currDate{
+    text-align: center;
+    align-items: center;
+    padding: 4px;
+    width: 180px;
+    margin: 0;
+}
+.calendar-body{
+    margin-left: 20px;
+}
+.calendar-days, .calendar-weeks{
+    margin: 0;
+    padding-left: 0;
+}
+#calendar  li {
+    list-style: none;
+    width: 160px;
+    text-align: center;
+}
+
+/* weeks */
+.calendar-weeks{
+    height: 30px;
+    margin-top: 4px;
+}
+.calendar-weeks li{
+    padding-right: 2px;
+    background: rgb(17,91,186);;
+    color: #fff;
+    font-weight: 600;
+    line-height: 30px;
+    font-size: 16px;
+}
+#calendar ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.calendar-days li{
+    height: 190px;
+    border: 1px solid #ccc;
+}
+
+.calendar-day{
+    display: flex;
+    justify-content: end;
+}
+.calendar-day span{
+    color: rgb(4, 60, 133);;
+    font-size: 16px;
+    margin: 4px;
+    font-weight: 600;
+}
+.calendar-activities{
+    margin: 0 6px;
+}
+.calendar-activity span{
+    border-radius: 50%;;
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: 2px solid rgb(214, 214, 214);
+    color: #fff;
+    line-height: 20px;
+    font-size: 12px;
+}
+.calendar-activity{
+    align-items: center;
+    display: flex;
+    padding: 4px 0;
+    margin: 4px 0;
+}
+.calendar-activity-hard span{
+    background: #b31d47;
+}
+.calendar-activity-soft span{
+    background-color: #0385A8;
+}
+.calendar-activity-active span{
+    background-color: #03A829;
+}
+.calendar-activity-passive span{
+    background-color: #696666;
+}
+.calendar-activity-hard div{
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(203,7,63,0.60) 80%);
+}
+.calendar-activity-soft div{
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(3,133,168,1) 80%);
+}
+.calendar-activity-active div{
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(3,168,41,1) 80%);
+}
+.calendar-activity-passive div{
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(105,102,102,1) 80%);
+}
+.calendar-activity-qty{
+    margin-left: 12px;
+    color: #000;
+    height: 22px;
+    line-height: 20px;
+    flex: 1;
+    justify-content: start;
+    display: flex;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

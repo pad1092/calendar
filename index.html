@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="calendar">   
+            <div class="calendar-header">
+                <span class="calendar-control" role="button" onclick="prevMonth()">Prev</span>  
+                <h4 class="calendar-currDate">February 2023</h4>
+                <span class="calendar-control" role="button" onclick="nextMonth()">Next</span>
+            </div>           
+            <div class="calendar-body">
+                <ul class="calendar-weeks">
+                    <li>Sunday</li>
+                    <li>Monday</li>
+                    <li>Tuesday</li>
+                    <li>Wednesday</li>
+                    <li>Thursday</li>
+                    <li>Friday</li>
+                    <li>Saturday</li>
+                </ul>
+                <div class="" style="overflow-y: scroll; height: 300px; margin-bottom: 12px;">
+                    <ul class="calendar-days">
+                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+
+</html>
+
+<!--  -->
