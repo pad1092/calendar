@@ -32,10 +32,10 @@ const renderCalender = (calendarData) => {
 
         var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
         if (data != undefined){
-            nbHard = data.nbHard;
-            nbSoft = data.nbSoft;
-            nbActive = data.nbActive;
-            nbPassive = data.nbPassive;
+            nbHard = data.nbHard == undefined ? '' : data.nbHard;
+            nbSoft = data.nbSoft == undefined ? '' : data.nbSoft;
+            nbActive = data.nbActive == undefined ? '' : data.nbActive;
+            nbPassive = data.nbPassive == undefined ? '' : data.nbPassive;
         }
         liTag +=
             `
@@ -74,14 +74,14 @@ const renderCalender = (calendarData) => {
 
         var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
         if (data != undefined){
-            nbHard = data.nbHard;
-            nbSoft = data.nbSoft;
-            nbActive = data.nbActive;
-            nbPassive = data.nbPassive;
+            nbHard = data.nbHard == undefined ? '' : data.nbHard;
+            nbSoft = data.nbSoft == undefined ? '' : data.nbSoft;
+            nbActive = data.nbActive == undefined ? '' : data.nbActive;
+            nbPassive = data.nbPassive == undefined ? '' : data.nbPassive;
         }
         liTag +=
             `
-                <li class="${i == date.getDate() ? 'calendar--active' : ''}">
+                <li class="${i == new Date().getDate() ? 'calendar--active' : ''}">
                     <div class="calendar-day">
                         <span>${i}</span>
                     </div>
@@ -118,10 +118,10 @@ const renderCalender = (calendarData) => {
         
         var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
         if (data != undefined){
-            nbHard = data.nbHard;
-            nbSoft = data.nbSoft;
-            nbActive = data.nbActive;
-            nbPassive = data.nbPassive;
+            nbHard = data.nbHard == undefined ? '' : data.nbHard;
+            nbSoft = data.nbSoft == undefined ? '' : data.nbSoft;
+            nbActive = data.nbActive == undefined ? '' : data.nbActive;
+            nbPassive = data.nbPassive == undefined ? '' : data.nbPassive;
         }
         liTag +=
             `
@@ -181,6 +181,7 @@ function getCalendarData(type) {
         endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
     }
 
+    
     // renderCalender(calendarData);
     callServer(startDate, endDate, type);
 }
