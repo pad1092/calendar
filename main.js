@@ -4,21 +4,22 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 let date = new Date();
 currYear = date.getFullYear();
 currMonth = date.getMonth();
+var firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
+var lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
+var lastDayOfMonth = new Date(currYear, currMonth, lastDateofMonth).getDay();
+var lastDateofPreMonth = new Date(currYear, currMonth, 0).getDate();
+const renderCalender = (calendarData) => {
+    
+    console.log(calendarData);
 
-const renderCalender = () => {
     const currentDate = document.querySelector(".calendar-currDate");
     const day = document.querySelector('.calendar-days')
-
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
 
-    let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
-    let lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
-    let lastDayOfMonth = new Date(currYear, currMonth, lastDateofMonth).getDay();
-    let lastDateofPreMonth = new Date(currYear, currMonth, 0).getDate();
     let liTag = "";
-    console.log(lastDayOfMonth)
 
     for (let i = firstDayOfMonth; i > 0; i--) {
+        var nbValue = getNbValue(i, calendarData);
         liTag +=
             `
                 <li class="calendar--inactive">
@@ -28,53 +29,55 @@ const renderCalender = () => {
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
                         </div>
                     </div>
                 </li>
             `;
     }
     for (let i = 1; i <= lastDateofMonth; i++) {
+        var nbValue = getNbValue(i, calendarData);
         liTag +=
             `
-                <li class="">
+                <li class="${i == date.getDate() ? 'calendar--active' : ''}">
                     <div class="calendar-day">
                         <span>${i}</span>
                     </div>
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
                         </div>
                     </div>
                 </li>
             `;
     }
     for (let i = 1; i <= 7 - lastDayOfMonth - 1; i++) {
+        var nbValue = getNbValue(i, calendarData);
         liTag +=
             `
                 <li class="calendar--inactive">
@@ -84,19 +87,19 @@ const renderCalender = () => {
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">0</div>
+                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
                         </div>
                     </div>
                 </li>
@@ -106,6 +109,50 @@ const renderCalender = () => {
 
 };
 
+function getNbValue(pDay, calendarData) {
+    for (key in calendarData.reverse()) {
+        var dateData = calendarData[key].date.split(" ")[0].split("-")[2];
+        if (pDay == dateData) {
+            var data = {
+                nbHard : calendarData[key].nbHard,
+                nbSoft : calendarData[key].nbSoft,
+                nbActive : calendarData[key].nbActive,
+                nbPassive : calendarData[key].nbPassive
+            };
+            return data;
+        }
+    }
+}
+
+function getCalendarData(type) {
+    firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
+    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
+    lastDayOfMonth = new Date(currYear, currMonth, lastDateofMonth).getDay();
+    lastDateofPreMonth = new Date(currYear, currMonth, 0).getDate();
+
+    // data of sending to server
+    let endDate = "";
+    let startDate = "";
+
+    let dateOfPreMonth = firstDayOfMonth == 0 ? lastDateofPreMonth : lastDateofPreMonth - firstDayOfMonth + 1;
+    let dateOfNextMonth = lastDayOfMonth == 6 ? 1 : 7 - lastDayOfMonth - 1
+
+    if (currMonth == 11) {
+        endDate = `${dateOfNextMonth}-${months[0].substring(0, 3)}-${currYear - 1}`;
+        startDate = `${dateOfPreMonth}-${months[currMonth - 1].substring(0, 3)}-${currYear}`;
+    }
+    else if (currMonth == 0) {
+        startDate = `${dateOfPreMonth}-${months[11].substring(0, 3)}-${currYear - 1}`;
+        endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
+    }
+    else {
+        startDate = `${dateOfPreMonth}-${months[currMonth - 1].substring(0, 3)}-${currYear}`;
+        endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
+    }
+
+    // renderCalender(calendarData);
+    callServer(startDate, endDate, type);
+}
 
 function prevMonth() {
     currMonth -= 1;
@@ -114,7 +161,7 @@ function prevMonth() {
         currYear = date.getFullYear();
         currMonth = date.getMonth();
     }
-    renderCalender();
+    getCalendarData("get");
 }
 function nextMonth() {
     currMonth += 1;
@@ -123,19 +170,18 @@ function nextMonth() {
         currYear = date.getFullYear();
         currMonth = date.getMonth();
     }
-    renderCalender();
+    getCalendarData("get");
 }
 
 function insertCalender() {
+    clearInterval(insertCalendarInterval);
     let calendar = `
         <div id="calendar">
-            <div class="calendar-control">
-                <span role="button" onclick="prevMonth()">Prev</span>
-                <span role="button" onclick="nextMonth()">Next</span>
-            </div>
             <div class="calendar-header">
-                February 2023
-            </div>
+                <a class="calendar-icon " role="button" onclick="prevMonth()">&#8249;</a>  
+                <h3 class="calendar-currDate">February 2023</h4>
+                <a class="calendar-icon" role="button" onclick="nextMonth()">&#8250;</a>
+            </div>  
             <div class="calendar-body">
                 <ul class="calendar-weeks">
                     <li>Sunday</li>
@@ -146,16 +192,32 @@ function insertCalender() {
                     <li>Friday</li>
                     <li>Saturday</li>
                 </ul>
-                <div class="" style="overflow-y: scroll; height: 300px; margin-bottom: 12px;">
+                <div class="calendar-days-wrapper">
                     <ul class="calendar-days">
-                    
+                   
                     </ul>
                 </div>
             </div>
         </div>
     `
-    // document.querySelector("#wrapper").innerHTML = calendar;
-    renderCalender();
+    document.querySelector(".calendar-wrapper").innerHTML = calendar;
+    getCalendarData("init");
 }
+const insertCalendarInterval = setInterval(function () {
+    if (document.querySelector(".calendar-wrapper") != undefined) {
+        insertCalender();
+    }
+}, 1000)
 
-insertCalender();
+// call server-side method
+function callServer(startDate, endDate, type) {
+    var component = AdfPage.PAGE.findComponentByAbsoluteId("pt1:myInput");
+    var data = {
+        pStartDate: startDate,
+        pEndDate: endDate
+    };
+    if (type == "init")
+        AdfCustomEvent.queue(component, "initCalendarData", data, true);
+    else if (type == "get")
+        AdfCustomEvent.queue(component, "getCalendarData", data, true);
+}
