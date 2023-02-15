@@ -10,16 +10,33 @@ var lastDayOfMonth = new Date(currYear, currMonth, lastDateofMonth).getDay();
 var lastDateofPreMonth = new Date(currYear, currMonth, 0).getDate();
 const renderCalender = (calendarData) => {
     
-    console.log(calendarData);
-
     const currentDate = document.querySelector(".calendar-currDate");
     const day = document.querySelector('.calendar-days')
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
 
     let liTag = "";
 
+    let dateOfPreMonth = new Date(currYear, currMonth - 1);
+    let dateOfNextMonth = new Date(currYear,currMonth + 1);
+    let dateOfCurrMonth = new Date(currYear, currMonth);
+
+    // render data of pre month
     for (let i = firstDayOfMonth; i > 0; i--) {
-        var nbValue = getNbValue(i, calendarData);
+
+        // value of calendar: nbHard - nbSoft - nbActive - nbPassive
+        var nbHard = nbSoft =  nbActive = nbPassive = '';
+        // check digit < 10, 1 to 01...
+        var monthTime = dateOfPreMonth.getMonth()+1 < 10 ? `0${dateOfPreMonth.getMonth()+1}` : `${dateOfPreMonth.getMonth()+1}`;
+        var dayTime = lastDateofPreMonth - i + 1 < 10 ? `0${lastDateofPreMonth - i + 1}` : `${lastDateofPreMonth - i + 1}`;
+        var currDate = `${dateOfPreMonth.getFullYear()}-${monthTime}-${dayTime}`;
+
+        var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
+        if (data != undefined){
+            nbHard = data.nbHard;
+            nbSoft = data.nbSoft;
+            nbActive = data.nbActive;
+            nbPassive = data.nbPassive;
+        }
         liTag +=
             `
                 <li class="calendar--inactive">
@@ -29,26 +46,39 @@ const renderCalender = (calendarData) => {
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
+                            <div class="calendar-activity-qty">${nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
+                            <div class="calendar-activity-qty">${nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
+                            <div class="calendar-activity-qty">${nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
+                            <div class="calendar-activity-qty">${nbPassive}</div>
                         </div>
                     </div>
                 </li>
             `;
     }
+
+    // render data of curr month
     for (let i = 1; i <= lastDateofMonth; i++) {
-        var nbValue = getNbValue(i, calendarData);
+        var nbHard = nbSoft =  nbActive = nbPassive = '';
+        var monthTime = dateOfCurrMonth.getMonth()+1 < 10 ? `0${dateOfCurrMonth.getMonth()+1}` : `${dateOfCurrMonth.getMonth()+1}`;
+        var dayTime = i < 10 ? `0${i}` : `${i}`;
+        var currDate = `${dateOfCurrMonth.getFullYear()}-${monthTime}-${dayTime}`;
+
+        var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
+        if (data != undefined){
+            nbHard = data.nbHard;
+            nbSoft = data.nbSoft;
+            nbActive = data.nbActive;
+            nbPassive = data.nbPassive;
+        }
         liTag +=
             `
                 <li class="${i == date.getDate() ? 'calendar--active' : ''}">
@@ -58,26 +88,41 @@ const renderCalender = (calendarData) => {
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
+                            <div class="calendar-activity-qty">${nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
+                            <div class="calendar-activity-qty">${nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
+                            <div class="calendar-activity-qty">${nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
+                            <div class="calendar-activity-qty">${nbPassive}</div>
                         </div>
                     </div>
                 </li>
             `;
     }
+
+    // render data of next month
     for (let i = 1; i <= 7 - lastDayOfMonth - 1; i++) {
-        var nbValue = getNbValue(i, calendarData);
+        // value of calendar: nbHard - nbSoft - nbActive - nbPassive
+        var nbHard = nbSoft =  nbActive = nbPassive = '';
+        // check digit < 10, 1 to 01...
+        var monthTime = dateOfNextMonth.getMonth()+1 < 10 ? `0${dateOfNextMonth.getMonth()+1}` : `${dateOfNextMonth.getMonth()+1}`;
+        var dayTime = i < 10 ? `0${i}` : `${i}`;
+        var currDate = `${dateOfNextMonth.getFullYear()}-${monthTime}-${dayTime}`;
+        
+        var data = calendarData.find(element => element.date.split(" ")[0] === currDate);
+        if (data != undefined){
+            nbHard = data.nbHard;
+            nbSoft = data.nbSoft;
+            nbActive = data.nbActive;
+            nbPassive = data.nbPassive;
+        }
         liTag +=
             `
                 <li class="calendar--inactive">
@@ -87,19 +132,19 @@ const renderCalender = (calendarData) => {
                     <div class="calendar-activities">
                         <div class="calendar-activity calendar-activity-hard">
                             <span class="calendar-activity-hard">H</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbHard}</div>
+                            <div class="calendar-activity-qty">${nbHard}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-soft">
                             <span  class="calendar-activity-soft">S</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbSoft}</div>
+                            <div class="calendar-activity-qty">${nbSoft}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-active">
                             <span class="calendar-activity-active">A</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbActive}</div>
+                            <div class="calendar-activity-qty">${nbActive}</div>
                         </div>
                         <div class="calendar-activity calendar-activity-passive">
                             <span class="calendar-activity-passive">P</span>
-                            <div class="calendar-activity-qty">${nbValue == undefined ? '' : nbValue.nbPassive}</div>
+                            <div class="calendar-activity-qty">${nbPassive}</div>
                         </div>
                     </div>
                 </li>
@@ -109,20 +154,6 @@ const renderCalender = (calendarData) => {
 
 };
 
-function getNbValue(pDay, calendarData) {
-    for (key in calendarData.reverse()) {
-        var dateData = calendarData[key].date.split(" ")[0].split("-")[2];
-        if (pDay == dateData) {
-            var data = {
-                nbHard : calendarData[key].nbHard,
-                nbSoft : calendarData[key].nbSoft,
-                nbActive : calendarData[key].nbActive,
-                nbPassive : calendarData[key].nbPassive
-            };
-            return data;
-        }
-    }
-}
 
 function getCalendarData(type) {
     firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
@@ -150,6 +181,71 @@ function getCalendarData(type) {
         endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
     }
 
+    calendarData = [
+        {
+            "date": "2021-03-29 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-03-30 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-03-31 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-01 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-02 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-05 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-06 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-07 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        },
+        {
+            "date": "2021-04-08 00:00:00.0",
+            "nbActive": 9,
+            "nbHard": 0,
+            "nbSoft": 9,
+            "nbPassive": 0
+        }
+    ];
     // renderCalender(calendarData);
     callServer(startDate, endDate, type);
 }
