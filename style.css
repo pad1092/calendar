@@ -2,7 +2,9 @@
     display: flex;
     background: linear-gradient(90deg, rgba(20,136,204,1) 40%, rgba(38,44,154,1) 100%);
     justify-content: center;
+    height: 1000px;
 }
+
 .calendar-icon{
     border-radius: 50%;
     width: 30px;
@@ -20,7 +22,7 @@
 }
 #calendar {
     width: 1200px;
-    height: 100%;
+    height: 404px;
     background: rgb(255, 255, 255);
     border-radius: 10px;
     margin-top: 12px;
@@ -99,8 +101,39 @@
     display: flex;
     flex-wrap: wrap;
 }
-.calendar-days{
-    margin-bottom: 120px;
+#calendar-desc{
+    margin: 20px 0 120px 0px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid #b6b6b6;
+    width: fit-content;
+
+}
+.desc-item{
+    width: 80px;
+    height: 60px;
+    margin: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.desc-item span{
+    margin: 2px;
+    font-weight: 600;
+    color: #032d70;
+}
+.calendar-desc-hard{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(203, 7, 63, 0.60) 80%);
+}
+.calendar-desc-soft{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(3, 133, 168, 1) 80%);
+}
+.calendar-desc-active{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(3, 168, 41, 1) 80%);
+}
+.calendar-desc-passive{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(105, 102, 102, 1) 80%);
 }
 .calendar-days li {
     height: 190px;
@@ -148,22 +181,6 @@
     margin: 4px 0;
 }
 
-.calendar-activity-hard span {
-    background: #b31d47;
-}
-
-.calendar-activity-soft span {
-    background-color: #0385A8;
-}
-
-.calendar-activity-active span {
-    background-color: #03A829;
-}
-
-.calendar-activity-passive span {
-    background-color: #696666;
-}
-
 .calendar-activity-hard div {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(203, 7, 63, 0.60) 80%);
 }
@@ -179,7 +196,22 @@
 .calendar-activity-passive div {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(105, 102, 102, 1) 80%);
 }
-
+.--fa-style{
+    margin-left: 2px;
+    font-size: 20px;
+}
+.--fa-style.ico-hard{
+    color: #b31d47;
+}
+.--fa-style.ico-soft{
+    color: #0385A8;
+}
+.--fa-style.ico-active{
+    color: #03A829;
+}
+.--fa-style.ico-passive{
+    color: #696666;
+}
 .calendar-activity-qty {
     margin-left: 12px;
     color: #000;
