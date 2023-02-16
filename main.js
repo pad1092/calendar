@@ -79,9 +79,11 @@ const renderCalender = (calendarData) => {
             nbActive = data.nbActive == undefined ? '' : data.nbActive;
             nbPassive = data.nbPassive == undefined ? '' : data.nbPassive;
         }
+        let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear()
+                        ? "calendar--active" : "";
         liTag +=
             `
-                <li class="${i == new Date().getDate() ? 'calendar--active' : ''}">
+                <li class="${isToday}">
                     <div class="calendar-day">
                         <span>${i}</span>
                     </div>
