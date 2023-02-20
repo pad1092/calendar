@@ -1,3 +1,7 @@
+dbPmsOperationDS
+jdbc/dbPmsOperationDS
+oracle.jdbc.OracleDriver
+user=PMS_OPERATION
 [
     {
         "date": "2021-03-01 00:00:00.0"
