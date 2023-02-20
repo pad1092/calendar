@@ -186,7 +186,7 @@ function getCalendarData(type) {
         startDate = `${dateOfPreMonth}-${months[currMonth - 1].substring(0, 3)}-${currYear}`;
         endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
     }
-
+    // calendarData = []
     // renderCalender(calendarData);
     callServer(startDate, endDate, type);
 }
@@ -209,7 +209,7 @@ function nextMonth() {
     }
     getCalendarData("get");
 }
-function monthSelection(value){
+function monthSelection(value) {
     currMonth = parseInt(value.split("-")[1]) - 1;
     currYear = parseInt(value.split("-")[0]);
     getCalendarData("get");
@@ -217,13 +217,14 @@ function monthSelection(value){
 function insertCalender() {
     clearInterval(insertCalendarInterval);
     let calendar = `
-    <div id="calendar">
+        <div id="calendar">
             <div class="calendar-header">
                 <a class="calendar-icon " role="button" onclick="prevMonth()">&#8249;</a>
                 <h3 class="calendar-currDate">February 2023</h4>
-                <input type="month" onchange="monthSelection(value)" style="position: absolute;  opacity: 0; width: 170px; font-size: 20px;">
-                <i class="fa-solid fa-calendar-days" style="margin-bottom: 2px; padding: 4px; font-size: 16px;"></i>
-                <a class="calendar-icon" role="button" onclick="nextMonth()">&#8250;</a>
+                    <input type="month" onchange="monthSelection(value)"
+                        style="position: absolute;  opacity: 0; width: 170px; font-size: 20px;">
+                    <i class="fa-solid fa-calendar-days" style="margin-bottom: 2px; padding: 4px; font-size: 16px;"></i>
+                    <a class="calendar-icon" role="button" onclick="nextMonth()">&#8250;</a>
             </div>
             <div class="calendar-body">
                 <ul class="calendar-weeks">
@@ -237,25 +238,25 @@ function insertCalender() {
                 </ul>
                 <div class="calendar-days-wrapper">
                     <ul class="calendar-days">
-
-                    </ul>
-                    <div id="calendar-desc">
-                        <div class="desc-item calendar-desc-hard">
-                            <i class="fa-solid fa-circle-minus --fa-style ico-hard"></i>
-                            <span>Soft</span>
-                        </div>
-                        <div class="desc-item calendar-desc-soft">
-                            <i class="fa-solid fa-circle-info --fa-style ico-soft"></i>
-                            <span>Hard</span>
-                        </div>
-                        <div class="desc-item calendar-desc-active">
-                            <i class="fa-sharp fa-solid fa-circle-check --fa-style ico-active"></i>
-                            <span>Active</span>
-                        </div>
-                        <div class="desc-item calendar-desc-passive">
-                            <i class="fa-sharp fa-solid fa-circle-xmark --fa-style ico-passive"></i>
-                            <span>Passive</span>
-                        </div>
+                    </ul>               
+                </div>
+                <div style="width: 1134px; background-color: #ccc; height: 4px;"></div>
+                <div id="calendar-desc">
+                    <div class="desc-item calendar-desc-hard">
+                        <i class="fa-solid fa-circle-minus --fa-style ico-hard"></i>
+                        <span>Soft</span>
+                    </div>
+                    <div class="desc-item calendar-desc-soft">
+                        <i class="fa-solid fa-circle-info --fa-style ico-soft"></i>
+                        <span>Hard</span>
+                    </div>
+                    <div class="desc-item calendar-desc-active">
+                        <i class="fa-sharp fa-solid fa-circle-check --fa-style ico-active"></i>
+                        <span>Active</span>
+                    </div>
+                    <div class="desc-item calendar-desc-passive">
+                        <i class="fa-sharp fa-solid fa-circle-xmark --fa-style ico-passive"></i>
+                        <span>Passive</span>
                     </div>
                 </div>
             </div>
@@ -264,6 +265,7 @@ function insertCalender() {
     document.querySelector(".calendar-wrapper").innerHTML = calendar;
     getCalendarData("init");
 }
+
 const insertCalendarInterval = setInterval(function () {
     if (document.querySelector(".calendar-wrapper") != undefined) {
         insertCalender();
