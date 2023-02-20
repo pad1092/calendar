@@ -187,71 +187,6 @@ function getCalendarData(type) {
         endDate = `${dateOfNextMonth}-${months[currMonth + 1].substring(0, 3)}-${currYear}`;
     }
 
-    var calendarData = [
-        {
-            "date": "2021-03-29 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-03-30 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-03-31 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-01 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-02 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-05 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-06 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-07 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        },
-        {
-            "date": "2021-04-08 00:00:00.0",
-            "nbActive": 9,
-            "nbHard": 0,
-            "nbNew": 9,
-            "nbPassive": 0
-        }
-    ]
     // renderCalender(calendarData);
     callServer(startDate, endDate, type);
 }
@@ -274,7 +209,11 @@ function nextMonth() {
     }
     getCalendarData("get");
 }
-
+function monthSelection(value){
+    currMonth = parseInt(value.split("-")[1]) - 1;
+    currYear = parseInt(value.split("-")[0]);
+    getCalendarData("get");
+}
 function insertCalender() {
     clearInterval(insertCalendarInterval);
     let calendar = `
@@ -282,8 +221,8 @@ function insertCalender() {
             <div class="calendar-header">
                 <a class="calendar-icon " role="button" onclick="prevMonth()">&#8249;</a>
                 <h3 class="calendar-currDate">February 2023</h4>
-                <input type="month" style="position: absolute;  opacity: 0;">
-                <i class="fa-solid fa-calendar-days" style="margin-bottom: 2px; padding: 4px;"></i>
+                <input type="month" onchange="monthSelection(value)" style="position: absolute;  opacity: 0; width: 170px; font-size: 20px;">
+                <i class="fa-solid fa-calendar-days" style="margin-bottom: 2px; padding: 4px; font-size: 16px;"></i>
                 <a class="calendar-icon" role="button" onclick="nextMonth()">&#8250;</a>
             </div>
             <div class="calendar-body">
