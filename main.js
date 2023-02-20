@@ -81,7 +81,7 @@ const renderCalender = (calendarData) => {
             nbActive = data.nbActive == undefined ? '' : data.nbActive;
             nbPassive = data.nbPassive == undefined ? '' : data.nbPassive;
         }
-        let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear()
+        let isToday = i === new Date().getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear()
             ? "calendar--active" : "";
         liTag +=
             `
@@ -198,6 +198,7 @@ function prevMonth() {
         currYear = date.getFullYear();
         currMonth = date.getMonth();
     }
+    setValueMonthInput(currMonth, currYear);
     getCalendarData("get");
 }
 function nextMonth() {
@@ -207,12 +208,20 @@ function nextMonth() {
         currYear = date.getFullYear();
         currMonth = date.getMonth();
     }
+    setValueMonthInput(currMonth, currYear);
     getCalendarData("get");
 }
 function monthSelection(value) {
-    currMonth = parseInt(value.split("-")[1]) - 1;
-    currYear = parseInt(value.split("-")[0]);
-    getCalendarData("get");
+    if (value != '') {
+        currMonth = parseInt(value.split("-")[1]) - 1;
+        currYear = parseInt(value.split("-")[0]);
+        getCalendarData("get");
+    }
+}
+function setValueMonthInput(monthVal, yearVal) {
+    monthVal += 1;
+    monthVal = monthVal < 10 ? `0${monthVal}` : monthVal
+    document.getElementById("month-input").value = `${yearVal}-${monthVal}`
 }
 function insertCalender() {
     clearInterval(insertCalendarInterval);
@@ -221,7 +230,7 @@ function insertCalender() {
             <div class="calendar-header">
                 <a class="calendar-icon " role="button" onclick="prevMonth()">&#8249;</a>
                 <h3 class="calendar-currDate">February 2023</h4>
-                    <input type="month" onchange="monthSelection(value)"
+                    <input id="month-input" type="month" onchange="monthSelection(value)"
                         style="position: absolute;  opacity: 0; width: 170px; font-size: 20px;">
                     <i class="fa-solid fa-calendar-days" style="margin-bottom: 2px; padding: 4px; font-size: 16px;"></i>
                     <a class="calendar-icon" role="button" onclick="nextMonth()">&#8250;</a>
