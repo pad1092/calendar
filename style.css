@@ -99,7 +99,7 @@
     flex-wrap: wrap;
 }
 #calendar-desc{
-    margin: 20px 0 120px 0px;
+    margin: 12px 0 120px 0px;
     display: flex;
     justify-content: center;
     border: 2px solid #b6b6b6;
@@ -143,8 +143,7 @@
 }
 .calendar-days-wrapper {
     overflow-y: scroll; 
-    height: 300px;
-    padding-bottom: 12px;
+    height: 192px;
 }
 .calendar-day span {
     color: rgb(4, 60, 133);
