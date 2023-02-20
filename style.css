@@ -15,6 +15,7 @@
     align-items: center;
     margin-bottom: 4px;
     user-select: none;
+    margin-left: 4px;
 }
 .calendar-icon:hover{
     background-color: #dfdfdf;
@@ -48,17 +49,13 @@
     margin: 0 20px;
 }
 
-.calendar-control {
-    text-align: center;
-    padding: 4px;
-}
 
 .calendar-currDate {
     font-size: 18px;
     text-align: center;
     align-items: center;
     padding: 4px;
-    width: 160px;
+    width: 140px;
     margin: 0;
 }
 
