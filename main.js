@@ -218,6 +218,25 @@ function monthSelection(value) {
         getCalendarData("get");
     }
 }
+
+function waitingServer(){
+    document.querySelector(".calendar-days-wrapper").style.opacity = 0;
+    document.querySelectorAll(".month-control").forEach(elm => {
+        elm.onclick = null;
+    })
+}
+function serverResponsed(){
+    document.querySelector(".calendar-days-wrapper").style.opacity = 1;
+    var preMonthBtn = document.querySelectorAll(".month-control")[0];
+    var nextMonthBtn = document.querySelectorAll(".month-control")[1];
+    preMonthBtn.onclick = function(){
+        prevMonth();
+    }
+    nextMonthBtn.onclick = function(){
+        nextMonth();
+    }
+}
+
 function setValueMonthInput(monthVal, yearVal) {
     monthVal += 1;
     monthVal = monthVal < 10 ? `0${monthVal}` : monthVal
